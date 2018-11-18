@@ -61,6 +61,12 @@ fun! s:RgSearch(txt)
   if &smartcase == 1
     let l:rgopts = l:rgopts . '-S '
   endif
+  if exists('g:rg_ignore_dirs')
+    for l:igdir in g:rg_ignore_dirs
+        let l:rgopts = printf("%s -g '!%s/*' ", l:rgopts, l:igdir)
+    endfor
+  endif
+
   silent! exe 'grep! ' . l:rgopts . a:txt
   if len(getqflist())
     exe g:rg_window_location 'copen'
