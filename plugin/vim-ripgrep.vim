@@ -32,6 +32,12 @@ fun! s:Rg(txt)
   call s:RgGrepContext(function('s:RgSearch'), s:RgSearchTerm(a:txt))
 endfun
 
+fun! s:RgFunc(txt)
+  let l:text = s:RgSearchTerm(a:txt)
+  let l:func = printf("'%s\\('", l:text)
+  call s:RgGrepContext(function('s:RgSearch'), l:func)
+endfun
+
 fun! s:RgGetVisualSelection()
     " Why is this not a built-in Vim script function?!
     let [line_start, column_start] = getpos("'<")[1:2]
@@ -152,4 +158,5 @@ fun! s:RgShowRoot()
 endfun
 
 command! -nargs=* -complete=file Rg :call s:Rg(<q-args>)
+command! -nargs=* -complete=file RgFunc :call s:RgFunc(<q-args>)
 command! -complete=file RgRoot :call s:RgShowRoot()
