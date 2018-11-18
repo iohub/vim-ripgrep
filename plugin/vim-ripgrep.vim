@@ -34,7 +34,7 @@ endfun
 
 fun! s:RgFunc(txt)
   let l:text = s:RgSearchTerm(a:txt)
-  let l:func = printf("'%s\\('", l:text)
+  let l:func = printf("'%s *\\('", l:text)
   call s:RgGrepContext(function('s:RgSearch'), l:func)
 endfun
 
