@@ -68,9 +68,14 @@ fun! s:RgSearch(txt)
     let l:rgopts = l:rgopts . '-S '
   endif
   if exists('g:rg_ignore_dirs')
-    for l:igdir in g:rg_ignore_dirs
-        let l:rgopts = printf("%s -g '!%s/*' ", l:rgopts, l:igdir)
+    for l:ig_dir in g:rg_ignore_dirs
+        let l:rgopts = printf("%s -g '!%s/*' ", l:rgopts, l:ig_dir)
     endfor
+  endif
+  if exists('g:rg_ignore_files')
+      for l:ig_file in g:rg_ignore_files
+          let l:rgopts = printf("%s -g '!%s' ", l:rgopts, l:ig_file)
+      endfor
   endif
 
   silent! exe 'grep! ' . l:rgopts . a:txt
